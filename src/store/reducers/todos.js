@@ -1,6 +1,3 @@
-import React, { useState, useEffect } from "react";
-import * as App from "../../pages/home";
-
 const defaultState = JSON.parse(localStorage.getItem("persist:root")) || "";
 
 export default function Todos(state = defaultState, action) {
@@ -63,7 +60,6 @@ export default function Todos(state = defaultState, action) {
 
       return [...state];
 
-    // {"todos":"[{\"id\":2,\"assunto\":\"222\",\"tarefa\":\"222\",\"stage\":1,\"order\":0},{\"id\":1,\"assunto\":\"dd\",\"tarefa\":\"dd\",\"stage\":1,\"order\":0},{\"id\":3,\"assunto\":\"33\",\"tarefa\":\"33\",\"stage\":1,\"order\":0}]","_persist":"{\"version\":-1,\"rehydrated\":true}"}
     default:
       return state;
   }

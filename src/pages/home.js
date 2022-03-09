@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-modal";
 import IconButton from "../components/Iconbutton";
 import * as TodoActions from "../store/actions/todos";
-import { faMountain } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const dispatch = useDispatch();
