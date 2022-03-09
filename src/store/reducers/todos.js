@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as App from "../../pages/teste";
+import * as App from "../../pages/home";
 
 const defaultState = JSON.parse(localStorage.getItem("persist:root")) || "";
 
