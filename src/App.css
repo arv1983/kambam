@@ -1,10 +1,13 @@
-.App {
-  text-align: center;
+body,
+html {
+  height: 100%;
+  background: #e6e6e6;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App {
+  text-align: center;
+
+  height: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,21 +16,86 @@
   }
 }
 
+input,
+textarea {
+  padding: 0.5rem;
+  border: double 3px transparent;
+  border-radius: 6px;
+  width: 95%;
+  background-image: linear-gradient(white, white),
+    linear-gradient(to right, #19a2f0, #ffaf31, #08c46d);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  outline: none !important;
+}
+.content {
+  width: 862px;
+  margin: 0 auto;
+  height: calc(100% - 48px);
+  background: white;
+  padding: 24px;
+}
+
+#root {
+  height: 100%;
+}
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #ffffff;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
-  color: #61dafb;
+  color: white;
 }
 
+.rowClass {
+  justify-content: space-between;
+  display: flex;
+  margin-top: 16px;
+}
+
+.todo {
+  background-color: #19a2f0;
+}
+.doing {
+  background-color: #ffaf31;
+}
+.done {
+  background-color: #08c46d;
+}
+
+.todoGrade {
+  background-color: #f0faff;
+}
+.doingGrade {
+  background-color: #fffceb;
+}
+.doneGrade {
+  background-color: #edfcf0;
+}
+.header-height-todo {
+  height: 64px;
+}
+.marginTop {
+  margin-top: 10px;
+}
+.header-todo {
+  border-radius: 10px;
+  color: #ffffff;
+  margin: 4px;
+}
+
+h3 {
+  margin: 0px;
+}
+h5 {
+  margin: 0px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
