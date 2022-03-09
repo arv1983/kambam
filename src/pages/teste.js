@@ -94,55 +94,47 @@ function App() {
   let data = useSelector((state) => state);
 
   let itemsFromBackend = data.todos || [];
-  console.log(itemsFromBackend);
 
   itemsFromBackend.sort(function (a, b) {
     return a.order < b.order ? -1 : a.order > b.order ? 1 : 0;
   });
 
-  function back(x) {
-    x.map(function (x) {
-      switch (x.stage) {
-        case 1:
-          colTodo.push(x);
-          console.log(x);
-          break;
-        case 2:
-          colDoing.push(x);
-          break;
-        case 3:
-          colDone.push(x);
+  itemsFromBackend.map(function (x) {
+    switch (x.stage) {
+      case 1:
+        colTodo.push(x);
 
-          break;
-      }
-    });
+        break;
+      case 2:
+        colDoing.push(x);
+        break;
+      case 3:
+        colDone.push(x);
 
-    const columnsFromBackend = {
-      ["1"]: {
-        name: "A fazer",
-        items: colTodo,
-        className: "todo",
-      },
-      ["2"]: {
-        name: "Fazendo",
-        items: colDoing,
-        className: "doing",
-      },
-      ["3"]: {
-        name: "Feito",
-        items: colDone,
-        className: "done",
-      },
-    };
+        break;
+    }
+  });
 
-    return columnsFromBackend;
-  }
+  const columnsFromBackend = {
+    ["1"]: {
+      name: "A fazer",
+      items: colTodo,
+      className: "todo",
+    },
+    ["2"]: {
+      name: "Fazendo",
+      items: colDoing,
+      className: "doing",
+    },
+    ["3"]: {
+      name: "Feito",
+      items: colDone,
+      className: "done",
+    },
+  };
 
-  console.log(itemsFromBackend);
+  const [columns, setColumns] = useState(columnsFromBackend);
 
-  const [columns, setColumns] = useState(back(itemsFromBackend));
-
-  console.log(columns);
   const style = {
     content: {
       border: "0",
@@ -219,73 +211,78 @@ function App() {
         </a>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <DragDropContext
-            onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+            onDragEnd={(result) =>
+              onDragEnd(result, columnsFromBackend, setColumns)
+            }
           >
-            {Object.entries(columns).map(([columnId, column], index) => {
-              console.log(columns);
-              return (
-                <div
-                  className={`header-todo header-height-todo todo ${column.className}`}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                  key={columnId}
-                >
-                  <h2>{column.name}</h2>
-                  <div style={{ margin: 8 }}>
-                    <Droppable droppableId={columnId} key={columnId}>
-                      {(provided, snapshot) => {
-                        return (
-                          <div
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                            style={{
-                              borderColor: snapshot.isDraggingOver
-                                ? "lightblue"
-                                : column.className + "Grade",
-                              padding: 4,
-                              width: 250,
-                              minHeight: 500,
-                              height: "100%",
-                            }}
-                            className={`header-todo header-height-todo todo ${column.className}Grade`}
-                          >
-                            {column.items &&
-                              column.items.map((item, index) => {
-                                return (
-                                  <Draggable
-                                    key={item.id}
-                                    draggableId={item.id && item.id.toString()}
-                                    index={index}
-                                  >
-                                    {(provided, snapshot) => {
-                                      return (
-                                        <div
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                        >
-                                          <Cards
-                                            data={item}
-                                            items={itemsFromBackend}
-                                          />
-                                        </div>
-                                      );
-                                    }}
-                                  </Draggable>
-                                );
-                              })}
-                            {provided.placeholder}
-                          </div>
-                        );
-                      }}
-                    </Droppable>
+            {Object.entries(columnsFromBackend).map(
+              ([columnId, column], index) => {
+                return (
+                  <div
+                    className={`header-todo header-height-todo todo ${column.className}`}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                    key={columnId}
+                  >
+                    <h2>{column.name}</h2>
+                    <div style={{ margin: 8 }}>
+                      <Droppable droppableId={columnId} key={columnId}>
+                        {(provided, snapshot) => {
+                          return (
+                            <div
+                              {...provided.droppableProps}
+                              ref={provided.innerRef}
+                              style={{
+                                borderColor: snapshot.isDraggingOver
+                                  ? "lightblue"
+                                  : column.className + "Grade",
+                                padding: 4,
+                                width: 250,
+                                minHeight: 500,
+                                height: "100%",
+                              }}
+                              className={`header-todo header-height-todo todo ${column.className}Grade`}
+                            >
+                              {column.items &&
+                                column.items.map((item, index) => {
+                                  return (
+                                    <Draggable
+                                      key={item.id}
+                                      draggableId={
+                                        item.id && item.id.toString()
+                                      }
+                                      index={index}
+                                    >
+                                      {(provided, snapshot) => {
+                                        return (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                          >
+                                            <Cards
+                                              data={item}
+                                              items={itemsFromBackend}
+                                            />
+                                          </div>
+                                        );
+                                      }}
+                                    </Draggable>
+                                  );
+                                })}
+                              {provided.placeholder}
+                            </div>
+                          );
+                        }}
+                      </Droppable>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              }
+            )}
           </DragDropContext>
         </div>
       </div>
