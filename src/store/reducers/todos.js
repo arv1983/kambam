@@ -31,9 +31,7 @@ export default function Todos(state = defaultState, action) {
       data["prioridade"] = action.payload.prioridade;
       data["cor"] = action.payload.cor;
 
-      state.push(data);
-
-      return [...state];
+      return [...state, data];
 
     case "MOVE_TODO":
       let idMove = findId(parseInt(action.payload.draggable));
@@ -58,7 +56,7 @@ export default function Todos(state = defaultState, action) {
         1
       );
 
-      return [...state, data];
+      return [...state];
 
     default:
       return state;
