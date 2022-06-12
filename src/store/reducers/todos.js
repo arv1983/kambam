@@ -58,7 +58,7 @@ export default function Todos(state = defaultState, action) {
         1
       );
 
-      return [...state];
+      return [...state, data];
 
     default:
       return state;
